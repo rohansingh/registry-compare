@@ -156,8 +156,9 @@ func main() {
 	v1Images := getImages(v1Uri, getV1Repos, getV1Tags)
 	v2Images := getImages(v2Uri, getV2Repos, getV2Tags)
 
-	fmt.Fprintf(os.Stderr, "Images in %s that are missing in %s:\n", v1Uri, v2Uri)
-	for _, im := range getMissingImages(v1Images, v2Images) {
+	missing := getMissingImages(v1Images, v2Images)
+	fmt.Fprintf(os.Stderr, "%d images in %s that are missing in %s:\n", len(missing), v1Uri, v2Uri)
+	for _, im := range missing {
 		fmt.Println(im)
 	}
 }
